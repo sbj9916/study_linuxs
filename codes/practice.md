@@ -1,37 +1,50 @@
 # 연습문제 1: 기본 상대 주소 이해
-- 1-1. 현재 위치에서 상대 주소 작성
-현재 위치가 ~/practice/project/src/main/일 때, 다음 파일들로 이동하는 상대 주소를 작성하시오
+## 1-1. 현재 위치에서 상대 주소 작성
+### - 현재 위치가 ~/practice/project/src/main/일 때, 다음 파일들로 이동하는 상대 주소를 작성하시오
+
 
 - helper.py 파일
-- README.md 파일
-- manual.txt 파일
-- settings.conf 파일
 ```
 [shinbeomjun@localhost main]$ cd ./../utils/
-
+```
+- README.md 파일
+```
 [shinbeomjun@localhost main]$ cd ./../../
-
+```
+- manual.txt 파일
+```
 [shinbeomjun@localhost main]$ cd ./../../docs/user/
-
+```
+- settings.conf 파일
+```
 [shinbeomjun@localhost main]$ cd ./../../config/
 ```
 ## 1-2. 상대 주소 검증
-- 위에서 작성한 상대 주소가 정확한지 다음 명령어로 확인하시오:
-cd ~/practice/project/src/main/
-ls [상대주소]
+### - 위에서 작성한 상대 주소가 정확한지 다음 명령어로 확인하시오: 
+```
+ - cd ~/practice/project/src/main/
+ - ls [상대주소]
+```
+- helper.py 파일
 ```
 [shinbeomjun@localhost main]$ ls ./../utils/
-
+```
+- README.md 파일
+```
 [shinbeomjun@localhost main]$ ls ./../../
-
+```
+- manual.txt 파일
+```
 [shinbeomjun@localhost main]$ ls ./../../docs/user/
-
+```
+- settings.conf 파일
+```
 [shinbeomjun@localhost main]$ ls ./../../config/
 ```
 # 연습문제 2: 다양한 시작점에서의 상대 주소
 ## 2-1. 시작점 변경 실습
 - 현재 위치가 ~/practice/project/docs/user/일 때:
-- app.py 파일로 이동하는 상대 주소를 작성하시오.
+ app.py 파일로 이동하는 상대 주소를 작성하시오.
 ```
 cd ./../../src/main/
 ```
@@ -128,32 +141,33 @@ cp ./config/* ./backup_config/
 # 연습문제 6: 에러 찾기 및 수정
 ## 6-1. 잘못된 상대 주소 찾기
 - 현재 위치가 ~/practice/project/docs/user/일 때, 다음 명령어들 중 에러가 있는 것을 찾고 올바른 명령어로 수정하시오:
-### A
-ls ../../../project/src/main/
+
+### A 
+- ls ../../../project/src/main/
 
 
 ### B
-cat ../../src/utils/helper.py
+- cat ../../src/utils/helper.py
 
 
 ### C
-cd ../dev/../../config/
+- cd ../dev/../../config/
 
 
-### D
-cp manual.txt ../../tests/unit/backup.txt
+### D (Error)
+- cp manual.txt ../../tests/unit/backup.txt
 ```
 cp ./../../tests/unit/manual.txt ./../../tests/unit/backup.txt
 ```
-### E
-mv api_copy.md ../../../src/main/
+### E (Error)
+- mv api_copy.md ../../../src/main/
 ```
 mv ./../../tests/unit/api_copy.md ./../../src/main/
 ```
 
 ## 6-2. 경로 최적화
 ### 다음 상대 주소를 더 간단하게 최적화하시오:
-#### 현재 위치: ~/practice/project/tests/unit/
+#### - 현재 위치: ~/practice/project/tests/unit/
 - ../../src/main/../utils/helper.py
 ```
 ../../src/utils/helper.py
