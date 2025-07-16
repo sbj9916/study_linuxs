@@ -93,3 +93,49 @@ Hello Linux
 [shinbeomjun@localhost src]$ mv main.py app.py
 [shinbeomjun@localhost src]$ cd /home/shinbeomjun/my_project/docs
 [shinbeomjun@localhost docs]$ mv README.md /home/shinbeomjun/my_project
+
+-6 결과물
+[shinbeomjun@localhost ~]$ tree
+.
+├── Desktop
+├── Documents
+├── Downloads
+├── Music
+├── my_project
+│   ├── config
+│   │   └── settings.conf
+│   ├── docs
+│   ├── README.md
+│   ├── src
+│   │   └── app.py
+│   └── tests
+├── my_project_backup
+│   └── my_project
+│       ├── config
+│       │   └── settings.conf
+│       ├── docs
+│       │   └── README.md
+│       ├── src
+│       │   └── main.py
+│       └── tests
+├── Pictures
+├── practice
+│   ├── backup
+│   │   ├── documents
+│   │   │   ├── notes
+│   │   │   │   └── memo.txt
+│   │   │   ├── readme.txt
+│   │   │   └── reports
+│   │   │       └── ls
+│   │   └── readme.txt
+│   ├── documents
+│   │   ├── introduction.txt
+│   │   ├── notes
+│   │   ├── reports
+│   │   │   └── ls
+│   │   └── study_notes.txt
+│   └── media
+├── Public
+├── Templates
+└── Videos
+
