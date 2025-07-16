@@ -22,8 +22,8 @@
 ## 1-2. 상대 주소 검증
 ### - 위에서 작성한 상대 주소가 정확한지 다음 명령어로 확인하시오: 
 
- #### - cd ~/practice/project/src/main/
- #### - ls [상대주소]
+ #### - 1. cd ~/practice/project/src/main/
+ #### - 2. ls [상대주소]
 
 - helper.py 파일
 ```
