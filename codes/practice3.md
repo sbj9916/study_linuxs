@@ -170,9 +170,9 @@ rm backup_2023.tar
 \# 확장자가 3글자가 아닌 파일들을 삭제하세요
 
 \# 힌트: 확장자가 .jpg, .png, .gif, .txt, .csv, .tar, .dat, .pdf, .ppt, .xls가 아닌 파일
-
-\# 명령어를 작성하세요:
-
+```
+rm *.{conf,sh,md}
+```
 ---
 
 ## 5\. 복합 명령어 실습
@@ -184,9 +184,11 @@ rm backup_2023.tar
 \# 2단계: 모든 문서 파일(.pdf, .ppt, .xls, .md)을 documents 디렉터리로 이동
 
 \# 3단계: 모든 데이터 파일(.csv, .dat)을 data 디렉터리로 이동 (없으면 생성)
-
-\# 명령어들을 작성하세요:
-
+```
+mv *.{jpg,png,gif} images/ && \
+mv *.{pdf,ppt,xls,md} documents/ && \
+mv *.{csv,dat} data/
+```
 ### 5-2. 백업 및 정리 작업
 
 \# 1단계: 모든 .txt 파일을 backup/txt\_files 디렉터리로 복사 (디렉터리 생성 필요)
@@ -194,9 +196,11 @@ rm backup_2023.tar
 \# 2단계: 모든 설정 파일(.conf)을 backup/config 디렉터리로 복사
 
 \# 3단계: 원본 설정 파일들을 삭제
-
-\# 명령어들을 작성하세요:
-
+```
+cp *.txt backup/txt_files/ && \
+cp *.conf backup/config/ && \
+rm *.{txt,conf}
+```
 ### 5-3. 날짜별 로그 정리
 
 \# 1단계: logs 디렉터리에 error, access, system 하위 디렉터리 생성
@@ -206,9 +210,12 @@ rm backup_2023.tar
 \# 3단계: log\_access.txt를 logs/access/로 이동
 
 \# 4단계: log\_system.txt를 logs/system/로 이동
-
-\# 명령어들을 작성하세요:
-
+```
+mkdir -p logs/{error,access,system} && \
+mv log_error.txt logs/error/ && \
+mv log_access.txt logs/access/ && \
+mv log_system.txt logs/system/
+```
 ---
 
 ## 6\. 고급 와일드카드 실습
@@ -216,20 +223,22 @@ rm backup_2023.tar
 ### 6-1. 복잡한 패턴 매칭
 
 \# "report" 또는 "data"로 시작하고 숫자가 포함된 모든 파일을 찾아서 processed 디렉터리로 복사하세요
-
-\# 명령어를 작성하세요:
-
+```
+cp report*[0-9]* processed/
+```
 ### 6-2. 제외 패턴 활용
 
 \# 모든 파일 중에서 "final\_"로 시작하지 않는 .txt 파일들을 draft 디렉터리로 이동하세요
-
-\# 명령어를 작성하세요:
-
+```
+mv !(final_*.txt) draft/
+```
 ### 6-3. 범위 지정 패턴
 
 \# 파일명에 001부터 009까지의 숫자가 포함된 파일들을 single\_digit 디렉터리로 복사하세요
 
-\# 명령어를 작성하세요:
+```
+cp *00[1-9] single_digit/
+```
 
 ---
 
