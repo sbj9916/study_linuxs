@@ -255,9 +255,12 @@ cp *00[1-9] single_digit/
 \# 3\. 백업 파일들(backup\_\*)을 archive 디렉터리로 이동
 
 \# 4\. 불필요한 임시 파일들(\*.tmp)을 삭제
-
-\# 명령어들을 작성하세요:
-
+```
+mv report*.txt completed/ && \
+mv temp* *_draft ongoing/ && \
+mv backup_* archive/ && \
+rm *.tmp
+```
 ### 7-2. 로그 관리 시나리오
 
 \# 시나리오: 서버 로그 정리
@@ -269,9 +272,12 @@ cp *00[1-9] single_digit/
 \# 3\. 2023년 로그 파일들을 삭제
 
 \# 4\. 시스템 로그들을 logs/system 디렉터리로 이동
-
-\# 명령어들을 작성하세요:
-
+```
+mv *2024*.log logs/2024/ && \
+mv *error*.log logs/errors/ && \
+rm *2023*.log && \
+mv *system*.log log/system/
+```
 ### 7-3. 개발 환경 정리 시나리오
 
 \# 시나리오: 개발 프로젝트 구조 정리
