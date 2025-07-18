@@ -230,7 +230,6 @@ cp report*[0-9]* processed/
 
 \# 모든 파일 중에서 "final\_"로 시작하지 않는 .txt 파일들을 draft 디렉터리로 이동하세요
 ```
-mv !(final_*.txt) draft/
 ```
 ### 6-3. 범위 지정 패턴
 
@@ -290,8 +289,15 @@ mv *system*.log log/system/
 
 \# 4\. 데이터 파일들(\*.csv, \*.dat)을 data 디렉터리로 이동
 
-\# 명령어들을 작성하세요:
-
+```
+mv *.sh scripts/ && \
+cp *.conf config/ && \
+cp *config config/ && \
+mv *.md docs/ && \
+mv *.txt docs/ && \
+mv *.dat data/ && \
+mv *.csv data/
+```
 ---
 
 ## 8\. 보너스 문제
