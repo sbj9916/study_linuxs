@@ -211,13 +211,13 @@ ls -l test_script.sh
 2. 현재 날짜와 시간을 logs/setup.log 파일에 기록  
 3. "설정 완료" 메시지 출력
 ```
+#!/bin/bash
 mkdir ./logs && \
 date > ./logs/setup.log && \
 echo "설정 완료" && \
 ls
 ```
 
-\#\!/bin/bash
 
 \# setup.sh 스크립트 내용을 작성하세요
 
@@ -265,8 +265,12 @@ dr-x------. 2 shinbeomjun shinbeomjun  6 Jul 18 18:07 project_logs
 * 존재하지 않으면 `"backup 디렉토리가 없습니다"` 메시지 출력
 
 nano에서 작성할 내용 예시:
-
-\#\!/bin/bash
+```
+#!/bin/bash
+ls -d ./backup/ && \
+touch backup/checked.txt && \
+echo "backup 디렉토리가 없습니다"
+```
 
 \# backup 디렉토리 존재 확인  
 \# 존재하면 checked.txt 생성, 없으면 메시지 출력
@@ -276,9 +280,11 @@ nano에서 작성할 내용 예시:
 #### **7-3. 다중 명령어 조건 실행**
 
 `project_logs` 디렉토리로 이동한 후, 이동에 성공한 경우 `log.txt` 파일을 만들고 `"로그 생성 완료"` 메시지를 출력하는 명령어를 작성하세요.
-
-명령어를 작성하세요:
-
+```
+cd project_logs/ && \
+touch log.txt && \
+echo "로그 생성 완료"
+```
 \# 디렉토리 이동 && 파일 생성 && 메시지 출력
 
 ---
@@ -286,9 +292,10 @@ nano에서 작성할 내용 예시:
 #### **7-4. 쉘 스크립트 실행 권한 설정 (User만)**
 
 앞서 작성한 `check_dir.sh` 파일에 대해 **사용자(User)** 에게만 실행 권한을 부여하고 현재 권한을 확인하는 명령어를 작성하세요.
-
-명령어를 작성하세요:
-
+```
+chmod 744 check_dir.sh && \
+ls -l check_dir.sh
+```
 \# 사용자에게만 실행 권한 부여 및 권한 확인
 
 ---
