@@ -75,15 +75,19 @@
 
 - \# 1-1 답안 작성란 
 ``` 
-chown alice company/departments/dev/ && \
-chgrp developers company/departments/dev/ && \
-chmod u=rwx company/departments/dev/ && \
-chmod g=rwx company/departments/dev/
+[root@localhost permission_practice]# chown alice company/departments/dev/ && \
+[root@localhost permission_practice]# chgrp developers company/departments/dev/ && \
+[root@localhost permission_practice]# chmod u=rwx company/departments/dev/ && \
+[root@localhost permission_practice]# chmod g=rwx company/departments/dev/
 
-chmod g=rw company/departments/dev/main.py && \
-chmod o=r company/departments/dev/main.py
+[root@localhost permission_practice]# chmod g=rw company/departments/dev/main.py && \
+[root@localhost permission_practice]# chmod o=r company/departments/dev/main.py
 
-chmod g=rx company/departments/dev/build.sh 
+[root@localhost permission_practice]# chmod g=rx company/departments/dev/build.sh 
+
+[alice@localhost permission_practice]$ ./company/departments/dev/build.sh
+Build script
+
 
 
 ```
@@ -102,16 +106,16 @@ chmod g=rx company/departments/dev/build.sh
 
 - \# 1-2 답안 작성란  
  ```
-chown alice private/alice/
+[root@localhost permission_practice]# chown alice private/alice/
 
-chmod u=rw private/alice/personal.txt && \
-chmod g=- private/alice/personal.txt && \
-chmod o=- private/alice/personal.txt
+[root@localhost permission_practice]# chmod u=rw private/alice/personal.txt && \
+[root@localhost permission_practice]# chmod g=- private/alice/personal.txt && \
+[root@localhost permission_practice]# chmod o=- private/alice/personal.txt
 
-chown bob private/bob/config.json && \
-chmod g=- private/bob/config.json && \
-chmod o=- private/bob/config.json && \
-chmod u=rw private/bob/config.json 
+[root@localhost permission_practice]# chown bob private/bob/config.json && \
+[root@localhost permission_practice]# chmod g=- private/bob/config.json && \
+[root@localhost permission_practice]# chmod o=- private/bob/config.json && \
+[root@localhost permission_practice]# chmod u=rw private/bob/config.json 
 ```  
     
   ---
@@ -293,8 +297,19 @@ usermod -aG project_b bob && \
 **명령어를 작성하세요:**
 
 - \# 8-2 답안 작성란  
--   
--   
+```
+[root@localhost ~]# touch system_check.sh && \
+[root@localhost ~]# ls -l system_check.sh 
+-rw-r--r--. 1 root root 0 Jul 22 09:25 system_check.sh
+[root@localhost ~]# 
+
+[root@localhost ~]# chmod 755 system_check.sh && \
+[root@localhost ~]# chmod u+s system_check.sh
+
+[root@localhost ~]# touch permission_practice/logs/2024/07/system_check.log && \
+[root@localhost ~]# chmod 600 permission_practice/logs/2024/07/system_check.log
+
+```   
     
   ---
 
@@ -312,8 +327,10 @@ usermod -aG project_b bob && \
 **명령어를 작성하세요:**
 
 - \# 9-1 답안 작성란  
--   
-- 
+```
+[root@localhost permission_practice]# chmod 744 ./company/
+
+```
 
 
   ### **9-2. 임시 작업 공간 설정**
@@ -327,8 +344,10 @@ usermod -aG project_b bob && \
 **명령어를 작성하세요:**
 
 - \# 9-2 답안 작성란  
--   
--   
+```
+mkdir ./temp && \
+chmod 777 ./temp
+``` 
     
   ---
 
@@ -346,8 +365,18 @@ usermod -aG project_b bob && \
 **명령어를 작성하세요:**
 
 - \# 10-1 답안 작성란  
--   
--   
+```
+chgrp developers ./backup/daily/ && \
+chmod g=rwx ./backup/daily/
+
+chgrp managers ./backup/weekly/ && \
+chmod g=rwx ./backup/weekly/ && \
+chmod o=- ./backup/weekly/
+
+chown root ./backup/monthly/ && \
+chmod o=- ./backup/monthly/ && \
+chmod u=rwx ./backup/monthly/
+```
     
   ---
 
