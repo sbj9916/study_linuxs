@@ -67,7 +67,7 @@ nano 80_1_shell_variables_aguments.sh
 V_FIRST="$1"
 V_SECOND="$2"
 echo "$V_SECOND" > "$V_FIRST"
-echo "welcome.txt 파일이 성공적으로 생성되었습니다."
+echo "$V_FIRST" 파일이 성공적으로 생성되었습니다."
 
 
 
