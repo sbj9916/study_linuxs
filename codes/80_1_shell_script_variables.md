@@ -1,4 +1,4 @@
----
+
 
 ## **🧪 실습 문제: 외부 인자를 사용한 파일 생성 스크립트**
 
@@ -71,6 +71,7 @@ echo "welcome.txt 파일이 성공적으로 생성되었습니다."
 
 [shinbeomjun@localhost Downloads]$ source ./80_1_shell_variables_aguments.sh welcome.txt "Hello Linux Learners!"
 Hello Linux Learners! welcome.txt
+
 welcome.txt 파일이 성공적으로 생성되었습니다.
 
 [shinbeomjun@localhost Downloads]$ cat welcome.txt
