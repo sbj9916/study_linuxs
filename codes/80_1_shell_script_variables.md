@@ -63,20 +63,21 @@
 
 ```
 nano 80_1_shell_variables_aguments.sh
-             
+
+ EOF            
 V_FIRST="$1"
 V_SECOND="$2"
 echo "$V_SECOND" > "$V_FIRST"
 echo "$V_FIRST" 파일이 성공적으로 생성되었습니다."
-
+EOF
 
 
 [shinbeomjun@localhost Downloads]$ source ./80_1_shell_variables_aguments.sh welcome.txt "Hello Linux Learners!"
-Hello Linux Learners! welcome.txt
 
 welcome.txt 파일이 성공적으로 생성되었습니다.
 
 [shinbeomjun@localhost Downloads]$ cat welcome.txt
-
+EOF
 Hello Linux Learners!
+EOF
 ```
