@@ -77,6 +77,7 @@ EOF
 welcome.txt 파일이 성공적으로 생성되었습니다.
 
 [shinbeomjun@localhost Downloads]$ cat welcome.txt
+
 EOF
 Hello Linux Learners!
 EOF
