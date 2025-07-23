@@ -383,16 +383,25 @@ Lisa:28:Seoul:Analyst
 
 
 **11-2.** `system.log` 파일에서 시간대별(시간 단위) 로그 개수를 계산하세요.
+```
+[shinbeomjun@localhost text_processing_practice]$ cut -d" " -f2 system.log | cut -d":" -f1 | uniq -c
 
-* \# 명령어를 작성하세요
+      6 09
+      1 10
+```
 
 
 
 **11-4.** 모든 `.txt` 파일에서 가장 많이 사용된 단어 상위 5개를 찾으세요.
+```
+[shinbeomjun@localhost text_processing_practice]$ cat *.txt | tr -cs 'A-Za-z' '\n' | tr 'A-Z' 'a-z' | sort | uniq -c | sort -n | tail -5
 
-* \# 명령어를 작성하세요  
-    
-  ---
+      3 linux
+      4 cherry
+      5 banana
+      6 apple
+      6 seoul
+```
 
   ## **문제 12: 실무 시나리오 (최고급)**
 
@@ -404,19 +413,72 @@ Lisa:28:Seoul:Analyst
 * echo \-e "192.168.1.10 \- \- \[15/Jan/2024:10:30:00\] GET /index.html 200\\n192.168.1.20 \- \- \[15/Jan/2024:10:31:00\] POST /login 200\\n192.168.1.10 \- \- \[15/Jan/2024:10:32:00\] GET /about.html 404\\n192.168.1.30 \- \- \[15/Jan/2024:10:33:00\] GET /index.html 200\\n192.168.1.10 \- \- \[15/Jan/2024:10:34:00\] GET /contact.html 200" \> access.log  
 *   
 * \# 가장 많이 접속한 IP 주소를 찾으세요  
-* \# 명령어를 작성하세요
+```
+[shinbeomjun@localhost text_processing_practice]$ cut -d" " -f1 access.log | sort | uniq -c | head -1
+
+      3 192.168.1.10
+```
 
 
 **12-2.** 시스템 사용자 분석
 
-* \# /etc/passwd 파일에서 실제 사용자(홈 디렉토리가 /home으로 시작)만 추출하여 사용자명 순으로 정렬하세요  
-* \# 명령어를 작성하세요
+* \# /etc/passwd 파일에서 실제 사용자(홈 디렉토리가 /home으로 시작)만 추출하여 사용자명 순으로 정렬하세요 
+``` 
+[shinbeomjun@localhost text_processing_practice]$ cat /etc/passwd | cut -d":" -f1 | sort
+
+adm
+alice
+avahi
+bin
+bob
+charlie
+chrony
+clevis
+colord
+daemon
+dbus
+diana
+dnsmasq
+eve
+flatpak
+ftp
+games
+gdm
+geoclue
+gnome-initial-setup
+halt
+libstoragemgmt
+lp
+mail
+nobody
+operator
+pipewire
+polkitd
+root
+rtkit
+setroubleshoot
+shinbeomjun
+shutdown
+sshd
+sssd
+sync
+systemd-coredump
+tcpdump
+tss
+```
 
 
 **12-3.** 설정 파일 백업 및 비교
 
 * \# employees.txt 파일을 백업하고, 원본에서 한 줄을 수정한 후 차이점을 확인하세요  
 * \# 명령어들을 순서대로 작성하세요  
-    
-  ---
+```
+[shinbeomjun@localhost text_processing_practice]$ cp employees.txt employees.txt.bak
+[shinbeomjun@localhost text_processing_practice]$ echo "text" >> employees.txt
+[shinbeomjun@localhost text_processing_practice]$ diff employees.txt employees.txt.bak
+6d5
+
+< text
+
+```
 
