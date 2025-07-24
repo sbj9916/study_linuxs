@@ -258,6 +258,25 @@ Output:
 
 2 daum.net
 
+```
+[shinbeomjun@localhost env]$ nano email_domains.sh 
+
+EOF
+read -p "Enter file name: " V_NAME
+V_EMAIL=$(grep "<*>" "$V_NAME" | tr -d "{<,>}" |  cut -d"@" -f 2 | sort | uniq -c | sort -nr)
+echo "Output: "
+echo -e "$V_EMAIL"
+EOF
+
+[shinbeomjun@localhost env]$ source email_domains.sh 
+Enter file name: people.txt
+Output: 
+      3 naver.com
+      3 gmail.com
+      2 daum.net
+
+```
+
 ---
 
 ### **✅ \[문제 6\] 다단계 파이프라인 정제**
