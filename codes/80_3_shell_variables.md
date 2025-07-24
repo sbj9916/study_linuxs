@@ -176,12 +176,14 @@ Unique words saved to: article\_unique.txt
 
 EOF
 read -p "input file: " V_WORD
-cat $V_WORD | tr -d "\n" | tr ",." " " |tr " " "\n" | sort | uniq -u > "$V_WORD"_unique.txt 
-echo "Unique words saved to: "$V_WORD"_"
+cat $V_WORD | tr -d "\n" | tr ",." " " |tr " " "\n" | sort | uniq -u > "${V_WORD%.*}_unique.txt" 
+echo "Unique words saved to: ${V_WORD%.*}_unique.txt"
+
 EOF
 
-[shinbeomjun@localhost env]$ source unique_words.sh 
+[shinbeomjun@localhost env]$ source unique_words.sh
 input file: article.txt
+Unique words saved to: article_unique.txt
 ```
 ---
 
@@ -205,6 +207,27 @@ bash compare\_lastline.sh file1.txt file2.txt
 
 Result: Different
 
+```
+
+EOF
+[shinbeomjun@localhost env]$ nano compare_lastline.sh
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 file1 file2"
+  exit 1
+fi
+
+if diff <(tail -n 1 "$1") <(tail -n 1 "$2") > /dev/null; then
+  echo "Result: Same"
+else
+  echo "Result: Different"
+fi
+EOF
+
+[shinbeomjun@localhost env]$ source compare_lastline.sh file1.txt file2.txt
+Result: Same
+
+```
 ---
 
 ### **✅ \[문제 5\] 이메일 리스트 정제 및 카운트**
