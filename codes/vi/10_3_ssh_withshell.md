@@ -141,64 +141,48 @@ EOF
 * 조건문을 사용하여 입력 검증 및 등급 분류 수행
 
 **구현해야 할 기능:**
-
-1. 사용자가 입력한 과목이 유효한지 검사 (수학, 영어, 과학) 
 ```
+#1. 사용자가 입력한 과목이 유효한지 검사 (수학, 영어, 과>학)
+
 S=과학
 E=영어
 M=수학
 TXT="students.txt"
+
 read -p "과목명: " V_WORD
 
 if [ "$V_WORD" != "$S" ] && [ "$V_WORD" != "$M" ] && [ "$V_WORD" != "$E" ]; then
    echo "$V_WORD는 해당하는 과목이 아닙니다."
-   exit 1  
+   return 1
 else
    echo "$V_WORD"
 fi
-``` 
-2. 해당 과목의 모든 점수를 추출하여 정렬된 목록 출력  
-```
-S=과학
-E=영어
-M=수학
-TXT="students.txt"
-read -p "과목명: " V_WORD
 
-SALL=$(cut -d":" -f7 "$TXT" | sort)
-EALL=$(cut -d":" -f5 "$TXT" | sort)
-MALL=$(cut -d":" -f3 "$TXT" | sort)
+#2. 해당 과목의 모든 점수를 추출하여 정렬된 목록 출력
+
+SALL=$(cut -d":" -f7 "$TXT" | grep -E '^[0-9]+$' | sort)
+EALL=$(cut -d":" -f5 "$TXT" | grep -E '^[0-9]+$' | sort)
+MALL=$(cut -d":" -f3 "$TXT" | grep -E '^[0-9]+$' | sort)
 
 if [ "$V_WORD" = "$S" ]; then
     echo "$SALL"
 elif [ "$V_WORD" = "$M" ]; then
     echo "$MALL"
-elif [ "$V_WORD" = "$E" ]; then
-    echo "$EALL"
 else
-    echo "$V_WORD는 해당하는 과목이 아닙니다."
+    echo "$EALL"
 fi
-```
-3. 최고점, 최저점, 평균점수 계산  
-```
-S=과학
-E=영어
-M=수학
-TXT="students.txt"
-read -p "과목명: " V_WORD
+
+#3. 최고점, 최저점, 평균점수 계산
 
 if [ "$V_WORD" = "$M" ]; then
     FIELD=3
 elif [ "$V_WORD" = "$E" ]; then
     FIELD=5
-elif [ "$V_WORD" = "$S" ]; then
-    FIELD=7
 else
-    echo "$V_WORD는 해당하는 과목이 아닙니다."
-    exit 1
+    FIELD=7
 fi
 
-SCORES=$(cut -d":" -f"$FIELD" "$TXT" | sort -n)
+SCORES=$(cut -d":" -f"$FIELD" "$TXT" | grep -E '^[0-9]+$' | sort -n)
 V_SUM=$(echo "$SCORES" | tr "\n" "+")
 V_SUM=${V_SUM%+}
 
@@ -211,27 +195,9 @@ AVERAGE=$((SUM / COUNT))
 echo "최고점    : $MAX"
 echo "최저점    : $MIN"
 echo "평균점수  : $AVERAGE"
-```
-4. 90점 이상(A), 80점 이상(B), 70점 이상(C), 그 외(D) 등급별 학생 수 출력 
-```
-S=과학
-E=영어
-M=수학
-TXT="students.txt"
-read -p "과목명: " V_WORD
 
-if [ "$V_WORD" = "$M" ]; then
-    FIELD=3
-elif [ "$V_WORD" = "$E" ]; then
-    FIELD=5
-elif [ "$V_WORD" = "$S" ]; then
-    FIELD=7
-else
-    echo "$V_WORD는 해당하는 과목이 아닙니다."
-    exit 1
-fi
-
-SCORES=$(cut -d":" -f"$FIELD" "$TXT")
+#4. 90점 이상(A), 80점 이상(B), 70점 이상(C), 그 외(D) 등
+급별 학생 수 출력
 
 A_COUNT=$(echo "$SCORES" | awk '$1 >= 90' | wc -l)
 B_COUNT=$(echo "$SCORES" | awk '$1 >= 80 && $1 < 90' | wc -l)
@@ -242,43 +208,38 @@ echo "A  : $A_COUNT명"
 echo "B  : $B_COUNT명"
 echo "C  : $C_COUNT명"
 echo "D  : $D_COUNT명"
-``` 
-5. 평균이 85점 이상이면 "우수", 75점 이상이면 "양호", 그 외는 "보통" 출력
-```
-S=과학
-E=영어
-M=수학
-TXT="students.txt"
-read -p "과목명: " V_WORD
 
-if [ "$V_WORD" = "$M" ]; then
-    FIELD=3
-elif [ "$V_WORD" = "$E" ]; then
-    FIELD=5
-elif [ "$V_WORD" = "$S" ]; then
-    FIELD=7
-else
-    echo "$V_WORD는 해당하는 과목이 아닙니다."
-    exit 1
-fi
-
-SCORES=$(cut -d":" -f"$FIELD" "$TXT" | sort -n)
-V_SUM=$(echo "$SCORES" | tr "\n" "+")
-V_SUM=${V_SUM%+}
-
-SUM=$(echo "$V_SUM" | bc)
-COUNT=$(echo "$SCORES" | wc -l)
-AVERAGE=$((SUM / COUNT))
-
-
+#5. 평균이 85점 이상이면 "우수", 75점 이상이면 "양호", 그 외는 "보통" 출력.
 
 if [ "$AVERAGE" -ge 85 ]; then
-    echo "$V_WORD : 우수"
+    echo "우수"
 elif [ "$AVERAGE" -ge 75 ]; then
-    echo "$V_WORD : 양호"
+    echo "양호"
 else
-    echo "$V_WORD : 보통"
+    echo "보통"
 fi
+
+[shinbeomjun@192.168.0.34 ~/quests/shell_practice]$ source grade_analyzer.sh 
+과목명: 수학
+수학
+76
+79
+81
+83
+85
+86
+88
+92
+95
+97
+최고점    : 97
+최저점    : 76
+평균점수  : 86
+A  : 3명
+B  : 5명
+C  : 2명
+D  : 0명
+우수
 ```
 **힌트:**
 
