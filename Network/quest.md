@@ -119,6 +119,50 @@ echo "성공률: $V_SUC%"
 * cut, sort, uniq, grep 명령어 활용  
 * head나 tail로 결과 제한
 
+```
+[sbj@localhost quests]$ vi network.sh
+
+#!/bin/bash
+
+echo "=== 접속 빈도 TOP 3 ==="
+
+cut -d' ' -f3,4 network.log | grep -iw "connect" | cut -d' ' -f1 | sort | uniq -c | sort -nr | head -n 3 > network.txt
+
+
+F_LINE=$(sed -n '1p' network.txt)
+if [ -n "$F_LINE" ]; then
+  F_COUNT=$(echo "$F_LINE" | awk '{print $1}')
+  F_IP=$(echo "$F_LINE" | awk '{print $2}')
+  F_TIME=$(grep -iw "$F_IP CONNECT" network.log | head -n1 | cut -d' ' -f2)
+  echo "1위: $F_IP (${F_COUNT}회) - 첫 접속: $F_TIME"
+fi
+
+
+S_LINE=$(sed -n '2p' network.txt)
+if [ -n "$S_LINE" ]; then
+  S_COUNT=$(echo "$S_LINE" | awk '{print $1}')
+  S_IP=$(echo "$S_LINE" | awk '{print $2}')
+  S_TIME=$(grep -iw "$S_IP CONNECT" network.log | head -n1 | cut -d' ' -f2)
+  echo "2위: $S_IP (${S_COUNT}회) - 첫 접속: $S_TIME"
+fi
+
+
+T_LINE=$(sed -n '3p' network.txt)
+if [ -n "$T_LINE" ]; then
+  T_COUNT=$(echo "$T_LINE" | awk '{print $1}')
+  T_IP=$(echo "$T_LINE" | awk '{print $2}')
+  T_TIME=$(grep "$T_IP CONNECT" network.log | head -n1 | cut -d' ' -f2)
+  echo "3위: $T_IP (${T_COUNT}회) - 첫 접속: $T_TIME"
+fi
+
+[sbj@localhost quests]$ source network.sh
+=== 접속 빈도 TOP 3 ===
+1위: 192.168.1.101 (2회) - 첫 접속: 10:30:30
+2위: 192.168.1.104 (1회) - 첫 접속: 10:33:25
+3위: 192.168.1.103 (1회) - 첫 접속: 10:32:10
+
+```
+
 ---
 
 ## **문제 3: 서버 상태 점검 스크립트**
@@ -152,6 +196,35 @@ OR
 * if문과 변수만 사용  
 * cut, ping 명령어 활용  
 * ping은 1회만 실행 (`ping -c 1`)
+
+```
+[sbj@localhost quests]$ vi servers.sh 
+
+#!/bin/bash
+
+V_IP="$1"
+V_PING=$(ping -c 1 "V_IP" 2>/dev/null)
+V_TIME=$(echo "$V_PING" | cut -d' ' -f7)
+
+echo "=== 서버 상태 점검 결과 ==="
+
+if [ "${V_TIME:0:5}" = "time=" ]; then
+  V_MS=$(echo "$V_TIME" | cut -d'=' -f2)
+  V_MS_A=${V_MS%.*} 
+
+  if [ "$V_MS_A" -ge 100 ]; then
+    echo "[정상] web01 ($V_IP) - 응답시간: ${V_MS}ms [느림]"
+  else
+    echo "[정상] web01 ($V_IP) - 응답시간: ${V_MS}ms"
+  fi
+else
+  echo "[오프라인] db01 ($V_IP) - 응답없음"
+fi
+
+[sbj@localhost quests]$ source ./servers.sh 123.92.0.11
+=== 서버 상태 점검 결과 ===
+[오프라인] db01 (123.92.0.11) - 응답없음
+```
 
 ---
 
