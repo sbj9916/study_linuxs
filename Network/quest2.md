@@ -61,7 +61,7 @@ if [ "$V_F" = "stop" ]; then
                 echo "서버가 종료되었습니다."
             fi
         else
-        echo "서버 실행중이 아닙니다."
+            echo "서버 실행중이 아닙니다."
         fi
 fi
 
