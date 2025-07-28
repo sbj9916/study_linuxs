@@ -53,21 +53,22 @@ fi
 if [ "$V_F" = "stop" ]; then
         V_PID=$(pgrep -f "http.server")
         if [ -n "$V_PID" ]; then
-            kill "$V_PID" > /dev/null 2>$1
-            disown
+        kill "$V_PID" > /dev/null 2>"server.log"
+        disown
         if ps -p "$V_PID" > /dev/null; then
-                echo"서버 실행중이 아닙니다."
-            else
-                echo "서버가 종료되었습니다."
-            fi
+                echo "서버 실행중이 아닙니다."
         else
-            echo "서버 실행중이 아닙니다."
+        echo "서버가 종료되었습니다."
+fi
+else
+        echo "서버 실행중이 아닙니다."
         fi
 fi
 
 if [ "$V_F" = "tail_log" ]; then
         cat ~/Downloads/webroot/server.log | tail -n 10
 fi
+
 
 
 [shinbeomjun@192.168.0.34 ~/Downloads/webroot]$ source ./webserver.sh start
