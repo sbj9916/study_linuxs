@@ -66,7 +66,7 @@ else
 fi
 
 if [ "$V_F" = "tail_log" ]; then
-        cat ~/Downloads/webroot/server.log | tail -n 10
+        tail -f ~/Downloads/webroot/server.log
 fi
 
 
