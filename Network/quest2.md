@@ -57,10 +57,10 @@ if [ "$V_F" = "stop" ]; then
             disown
         if ps -p "$V_PID" > /dev/null; then
                 echo"서버 실행중이 아닙니다."
+            else
+                echo "서버가 종료되었습니다."
+            fi
         else
-        echo "서버가 종료되었습니다."
-fi
-else
         echo "서버 실행중이 아닙니다."
         fi
 fi
