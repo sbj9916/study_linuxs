@@ -89,7 +89,19 @@ else
     echo "포트 $V_SIX:  사용 안함"
 fi
 
-echo "총 개 포트 중 개가 사용 중입니다."
+V_ALL=0
+V_USE=0
+
+for port in "$V_FIR" "$V_SEC" "$V_THI" "$V_FOU" "$V_FIF" "$V_SIX"; do
+    if [ -n "$port" ]; then
+        V_ALL=$((V_ALL + 1))
+        if echo "$V_PORT" | grep -wq "$port"; then
+            V_USE=$((V_USE + 1))
+        fi
+    fi
+done
+
+echo "총 $V_ALL개 포트 중 $V_USE개가 사용 중입니다."
 
 [hoseung@192.168.0.37 ~/Downloads/webroot]$ source ./check_ports.sh 80 443 7000 3000 8080 45
 포트 사용 상태 확인 중...
@@ -99,6 +111,7 @@ echo "총 개 포트 중 개가 사용 중입니다."
 포트 3000:  사용 안함
 포트 8080:  사용 중
 포트 45:  사용 안함
+총 6개 포트 중 2개가 사용 중입니다.
 ```
 ---
 
@@ -140,6 +153,49 @@ $ ./kill\_port.sh 9999
 포트 9999 사용 프로세스 검색 중...
 
 포트 9999를 사용하는 프로세스가 없습니다.
+
+
+```
+[sbj@localhost quests]$ vi kill_port.sh
+
+#!/bin/bash
+
+V_PORT=$1
+
+echo "포트 $V_PORT 사용 프로세스 검색 중..."
+
+
+
+V_PID=$(lsof -ti :"$V_PORT")
+V_COM=$(lsof -i :"$V_PORT" | grep "LISTEN" | cut -d" " -f1)
+if [ -n "$V_COM" ]; then
+        echo "발견된 프로세스: "
+fi
+
+if [ -n "$V_COM" ]; then
+        echo "PID: $V_PID. 프로세스명:$V_COM"
+else    
+        echo "포트 $V_PORT를 사용하는 프로세스가 없습니다."
+fi
+
+if [ -n "$V_COM" ]; then
+        kill -9 "$V_PID"
+        echo "PID: $V_PID 종료 완료"
+        echo "포트 $V_PORT이 해제되었습니다."
+fi
+
+
+[sbj@localhost quests]$ source ./kill_port.sh 8000
+포트 8000 사용 프로세스 검색 중...
+발견된 프로세스: 
+PID: 3099. 프로세스명:python3
+PID: 3099 종료 완료
+포트 8000이 해제되었습니다.
+
+[sbj@localhost quests]$ source ./kill_port.sh 8500
+포트 8500 사용 프로세스 검색 중...
+포트 8500를 사용하는 프로세스가 없습니다.
+```
 
 ---
 
